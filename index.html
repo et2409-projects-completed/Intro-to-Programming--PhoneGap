@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Chucks Joke App</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+            [data-role=page]{height: 100% !important; position: relative !important;}
+            [data-role=footer]{bottom:0; position: absolute !important; top: auto !importamt; width: 100% }
+        
+        </style>
+        <script>
+            var xmlhttp;
+            
+            window.onload = function()
+            {
+                document.getElementById('btnGetJoke').addEventListener('click', getJoke, false);
+                
+            }
+            
+            function getJoke()
+            {
+                var url = "http://api.icndb.com/jokes/random";
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = displayJoke;
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+            
+            function displayJoke()
+            {
+                
+                if(xmlhttp.readyState ==4 && xmlhttp.status == 200)
+                    {
+                        
+                        var response = xmlhttp.responseText;
+                        response = JSON.parse(response);
+                        document.getElementById('joke').innerHTML = "<h1>" + response.value.joke + "</h1>";
+                    }
+            }
+        
+        </script>
+    
+    </head>
+    <body>
+        
+        <div data-role="page">
+        <div data-role="header">
+            <h2>Chuck Norris Joke Generator</h2>
+        </div>
+        <div data-role="main" class="ui-content">    
+        <div id="joke"></div>
+        <button id="btnGetJoke">Get Joke</button>
+        </div>    
+        <div data-role="footer">
+            <h2>Thompson</h2>
+        </div>
+        </div>
+        
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
